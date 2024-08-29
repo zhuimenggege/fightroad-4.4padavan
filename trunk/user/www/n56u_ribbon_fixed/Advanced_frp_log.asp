@@ -110,8 +110,8 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="text-align: right; padding-bottom: 0px;">
-                                                    <input type="button" onClick="location.href=location.href" value="<#CTL_refresh#>" class="btn btn-primary btn-refreshlog">
+                                            <td style="text-align: right; padding-bottom: 0px;">
+                                                <input type="button" onClick="location.href=location.href" value="<#CTL_refresh#>" class="btn btn-primary" style="width: 219px;">
                                                 </td>
                                             </tr>
                                         </table>
