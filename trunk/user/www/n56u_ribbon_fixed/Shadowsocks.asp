@@ -1665,11 +1665,11 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 																	<% nvram_match_x("","ss_run_mode", "router","selected"); %>>
 																	绕过大陆IP模式</option>
 																<option value="all"
-																	<% nvram_match_x("","ss_run_mode", "all","selected"); %>>
+																	<!--<% nvram_match_x("","ss_run_mode", "all","selected"); %>>
 																	全局模式</option>
 																<option value="oversea"
 																	<% nvram_match_x("","ss_run_mode", "oversea","selected"); %>>
-																	海外用户回国模式</option>
+																	海外用户回国模式</option>-->
 															</select>
 														</td>
 													</tr>
@@ -1701,7 +1701,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 															<select name="pdnsd_enable" id="pdnsd_enable" class="input"
 																style="width: 200px;" onchange="switch_dns()">
 																<option value="0">使用dns2tcp查询</option>
-																<option value="1">使用其它服务器查询</option>
+																<!--<option value="1">使用其它服务器查询</option>-->
 															</select>
 														</td>
 													</tr>
@@ -1749,9 +1749,9 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 														<td>
 															<select name="tunnel_forward" class="input"
 																style="width: 200px;">
-																<option value="8.8.4.4#53">Google Public DNS (8.8.4.4)
-																</option>
 																<option value="8.8.8.8#53">Google Public DNS (8.8.8.8)
+																</option>																
+																<option value="8.8.4.4#53">Google Public DNS (8.8.4.4)
 																</option>
 																<option value="208.67.222.222#53">OpenDNS
 																	(208.67.222.222)</option>
