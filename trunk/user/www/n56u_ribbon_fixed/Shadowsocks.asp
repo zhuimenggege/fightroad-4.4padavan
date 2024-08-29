@@ -1664,8 +1664,8 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 																<option value="router"
 																	<% nvram_match_x("","ss_run_mode", "router","selected"); %>>
 																	绕过大陆IP模式</option>
-																<option value="all"
-																	<!--<% nvram_match_x("","ss_run_mode", "all","selected"); %>>
+																<!--<option value="all"
+																	<% nvram_match_x("","ss_run_mode", "all","selected"); %>>
 																	全局模式</option>
 																<option value="oversea"
 																	<% nvram_match_x("","ss_run_mode", "oversea","selected"); %>>
