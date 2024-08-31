@@ -57,8 +57,8 @@ rules() {
 	done
 	nat_enable=$(nvram get zerotier_nat)
 	zt0=$(ifconfig | grep zt | awk '{print $1}')
-	logger -t "zerotier" "添加防火墙规则中..."
 	del_rules
+ 	logger -t "zerotier" "添加防火墙规则中..."
 	iptables -A INPUT -i $zt0 -j ACCEPT
 	iptables -A FORWARD -i $zt0 -o $zt0 -j ACCEPT
 	iptables -A FORWARD -i $zt0 -j ACCEPT
