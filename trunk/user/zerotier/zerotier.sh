@@ -1,6 +1,7 @@
 #!/bin/sh
 #20200426 chongshengB
 #20210410 xumng123
+#20240831 fightround
 PROG=/usr/bin/zerotier-one
 PROGCLI=/usr/bin/zerotier-cli
 PROGIDT=/usr/bin/zerotier-idtool
@@ -46,13 +47,14 @@ start_instance() {
 	if [ -n "$moonid" ]; then
 		for id in ${moonid//,/ }; do
 			$PROGCLI orbit $id $id
-			logger -t "zerotier" "orbit moonid $id ok!"
+			logger -t "zerotier" "加入moonid: $id 成功!"
 		done
 	fi
 	if [ -n "$nwid" ]; then
 		$PROGCLI join $nwid
-		logger -t "zerotier" "join nwid $nwid ok!"
+		logger -t "zerotier" "加入网络: $nwid 成功!"
 		rules
+
 	fi
 }
 
@@ -62,7 +64,7 @@ rules() {
 	done
 	nat_enable=$(nvram get zerotier_nat)
 	zt0=$(ifconfig | grep zt | awk '{print $1}')
-	logger -t "zerotier" "zt interface $zt0 is started!"
+	logger -t "zerotier" "添加防火墙规则中..."
 	del_rules
 	iptables -A INPUT -i $zt0 -j ACCEPT
 	iptables -A FORWARD -i $zt0 -o $zt0 -j ACCEPT
@@ -75,11 +77,13 @@ rules() {
 		ip_segment=$(ip route | grep "dev\s+$zt0\s+proto\s+kernel" | awk '{print $1}')
 		iptables -t nat -A POSTROUTING -s $ip_segment -j MASQUERADE
 	fi
+		logger -t "zerotier" "zerotier接口: $zt0 启动成功!"
 }
 
 del_rules() {
 	zt0=$(ifconfig | grep zt | awk '{print $1}')
 	ip_segment=$(ip route | grep "dev\s+$zt0\s+proto\s+kernel" | awk '{print $1}')
+	logger -t "zerotier" "删除防火墙规则中..."
 	iptables -D INPUT -i $zt0 -j ACCEPT 2>/dev/null
 	iptables -D FORWARD -i $zt0 -o $zt0 -j ACCEPT 2>/dev/null
 	iptables -D FORWARD -i $zt0 -j ACCEPT 2>/dev/null
@@ -96,15 +100,17 @@ start_zero() {
 kill_z() {
 	zerotier_process=$(pidof zerotier-one)
 	if [ -n "$zerotier_process" ]; then
-		logger -t "zerotier" "关闭进程..."
+		logger -t "zerotier" "有进程在运行，结束中..."
 		killall zerotier-one >/dev/null 2>&1
 		kill -9 "$zerotier_process" >/dev/null 2>&1
 	fi
 }
 stop_zero() {
+    logger -t "zerotier" "正在关闭zerotier..."
 	del_rules
 	kill_z
 	rm -rf $config_path
+	logger -t "zerotier" "zerotier关闭成功!"
 }
 
 case $1 in
