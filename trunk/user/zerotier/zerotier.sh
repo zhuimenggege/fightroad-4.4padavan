@@ -68,7 +68,7 @@ rules() {
 		    sleep 1
 		done
 		ip_segment=$(ip route | grep -E "dev\s+$zt0\s+proto\s+kernel"| awk '{print $1}')
-                logger -t "zerotier" "$zt0 网段为$ip_segment "
+                logger -t "zerotier" "$zt0 网段为$ip_segment 添加进NAT规则中..."
 		iptables -t nat -A POSTROUTING -s $ip_segment -j MASQUERADE
 	fi
 		logger -t "zerotier" "zerotier接口: $zt0 启动成功!"
