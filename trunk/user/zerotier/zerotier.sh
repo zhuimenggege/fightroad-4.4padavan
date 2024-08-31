@@ -74,7 +74,7 @@ rules() {
 		while [ "$(ip route | grep -E "dev\s+$zt0\s+proto\s+kernel"| awk '{print $1}')" = "" ]; do
 		    sleep 1
 		done
-		ip_segment=$(ip route | grep "dev\s+$zt0\s+proto\s+kernel" | awk '{print $1}')
+		ip_segment=$(ip route | grep -E "dev\s+$zt0\s+proto\s+kernel"| awk '{print $1}')
                 logger -t "zerotier" "$zt0 网段为$ip_segment "
 		iptables -t nat -A POSTROUTING -s $ip_segment -j MASQUERADE
 	fi
@@ -83,7 +83,7 @@ rules() {
 
 del_rules() {
 	zt0=$(ifconfig | grep zt | awk '{print $1}')
-	ip_segment=$(ip route | grep "dev\s+$zt0\s+proto\s+kernel" | awk '{print $1}')
+	ip_segment=$(ip route | grep -E "dev\s+$zt0\s+proto\s+kernel"| awk '{print $1}')
 	logger -t "zerotier" "删除防火墙规则中..."
 	iptables -D INPUT -i $zt0 -j ACCEPT 2>/dev/null
 	iptables -D FORWARD -i $zt0 -o $zt0 -j ACCEPT 2>/dev/null
