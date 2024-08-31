@@ -12,7 +12,6 @@ start_instance() {
 	nwid="$(nvram get zerotier_id)"
 	moonid="$(nvram get zerotier_moonid)"
 	secret="$(nvram get zerotier_secret)"
-	planet="$(nvram get zerotier_planet)"
 	mkdir -p $config_path/networks.d
 	mkdir -p $config_path/moons.d
 	if [ -n "$port" ]; then
@@ -34,10 +33,6 @@ start_instance() {
 		$PROGIDT getpublic $config_path/identity.secret >$config_path/identity.public
 		#rm -f $config_path/identity.public
 	fi
-	if [ -n "$planet" ]; then
-		logger -t "zerotier" "找到planet,正在写入文件,请稍后..."
-		echo "$planet" | base64 -d  >$config_path/planet
-	fi
 
 	$PROG $args $config_path >/dev/null 2>&1 &
 
@@ -45,10 +40,8 @@ start_instance() {
 		sleep 1
 	done
 	if [ -n "$moonid" ]; then
-		for id in ${moonid//,/ }; do
-			$PROGCLI orbit $id $id
-			logger -t "zerotier" "加入moonid: $id 成功!"
-		done
+		$PROGCLI orbit $moonid $moonid
+		logger -t "zerotier" "加入moonid: $id 成功!"
 	fi
 	if [ -n "$nwid" ]; then
 		$PROGCLI join $nwid
