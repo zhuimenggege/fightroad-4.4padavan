@@ -41,7 +41,7 @@ start_instance() {
 	done
 	if [ -n "$moonid" ]; then
 		$PROGCLI orbit $moonid $moonid
-		logger -t "zerotier" "加入moonid: $id 成功!"
+		logger -t "zerotier" "加入moon: $moonid 成功!"
 	fi
 	if [ -n "$nwid" ]; then
 		$PROGCLI join $nwid
