@@ -1,5 +1,17 @@
 # padavan #
 
+基于TSL大佬的padavan4.4版本，做了一些自己的优化
+
+默认信息如下
+
+ip：192.168.2.1
+
+账号：admin
+
+密码：admin
+
+wifi密码：1234567890
+
 This project is based on original rt-n56u with latest mtk 4.4.198 kernel, which is fetch from D-LINK GPL code.
 
 ##### Enhancements in this repo
@@ -49,66 +61,3 @@ This project is based on original rt-n56u with latest mtk 4.4.198 kernel, which 
 - MI-R3P
 - R2100
 - XY-C1
-
-# Compilation steps
-
-- Install dependencies
-  ```sh
-  # Debian/Ubuntu
-  sudo apt install unzip libtool-bin ccache curl cmake gperf gawk flex bison nano xxd \
-      fakeroot kmod cpio bc zip git python3-docutils gettext automake autopoint \
-      texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev \
-      libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
-  ```
-  **Optional:**
-  - install [golang](https://go.dev/doc/install) for building go programs
-    ```sh
-    sudo rm -rf /usr/local/go
-    curl -fsSL https://go.dev/dl/go1.20.10.linux-amd64.tar.gz | sudo tar -C /usr/local -xz
-    echo "export PATH=\$PATH:/usr/local/go/bin" | sudo tee /etc/profile.d/go.sh
-    source /etc/profile.d/go.sh
-    go version
-    ```
-  - install [nodejs](https://nodejs.org/en/download) for building [AdGuardHome](trunk/user/adguardhome)
-    ```sh
-    sudo apt update
-    sudo apt install -y ca-certificates curl gnupg
-    sudo mkdir -p /etc/apt/keyrings
-    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_18.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-    sudo apt update
-    sudo apt install -y nodejs
-    node -v
-    ```
-- Clone source code
-  ```sh
-  git clone https://github.com/tsl0922/padavan.git
-  ```
-- Modify template file and start compiling
-  ```sh
-  # (Optional) Modify template file
-  # vi trunk/configs/templates/K2P.config
-
-  # Start compiling with: make PRODUCT_NAME
-  make K2P
-
-  # To build firmware for other devices, clean the tree after previous build
-  make clean
-  ```
-
-# Package Development
-
-- Makefile examples
-  - [Makefile project](trunk/libs/libpcre/Makefile) 
-  - [CMake project](trunk/user/ttyd/Makefile)
-- Compiling a single package (cd to `trunk` first)
-  - build: `make libs/libpcre_only`
-  - clean: `make libs/libpcre_clean`
-  - romfs: `make libs/libpcre_romfs`
-
-# Manuals
-
-- Controlling GPIO and LEDs via sysfs
-- How to use NAND RWFS partition
-- How to use IPv6 NAT and fullcone NAT
-- How to add new device support with device tree
