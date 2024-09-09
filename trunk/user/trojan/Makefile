@@ -45,4 +45,3 @@ clean:
 
 romfs:
 	$(ROMFSINST) $(THISDIR)/$(SRC_NAME)/build/trojan /usr/bin/trojan
-        $(ROMFSINST) $(THISDIR)/cacert.pem /usr/bin/cacert.pem
