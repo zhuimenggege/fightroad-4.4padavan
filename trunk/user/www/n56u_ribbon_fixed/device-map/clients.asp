@@ -381,7 +381,7 @@ function networkmap_update(s){
 
 <div id="unBlockedClients_table"></div>
 
-<table id="Clients_table" width="100%" align="center" cellpadding="1" class="table">
+<table id="Clients_table" width="100%" align="center" class="table">
     <thead>
         <tr>
             <th colspan="5" style="text-align: center;"><#ConnectedClient#></th>
