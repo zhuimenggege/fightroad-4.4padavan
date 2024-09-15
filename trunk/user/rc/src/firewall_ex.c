@@ -678,7 +678,8 @@ include_masquerade(FILE *fp, char *wan_if, char *wan_ip, char *lan_net, int is_f
 	char *dtype = "POSTROUTING";
 
 	if (is_fullcone) {
- 		fprintf(fp, "-A %s -o %s -s %s -j MASQUERADE --mode fullcone\n", dtype, wan_if, lan_net);
+		fprintf(fp, "-A POSTROUTING -o %s -s %s -j FULLCONENAT\n", wan_if, lan_net);
+		fprintf(fp, "-A PREROUTING -i %s -j FULLCONENAT\n", wan_if);
 	} else {
 		if (wan_ip)
 			fprintf(fp, "-A %s -o %s -s %s -j SNAT --to-source %s\n", dtype, wan_if, lan_net, wan_ip);
