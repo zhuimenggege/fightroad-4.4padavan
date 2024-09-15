@@ -551,11 +551,6 @@ struct nvram_pair router_defaults[] = {
 	{ "vlmcsd_enable", "0" },
 #endif
 
-#if defined (APP_IPERF3)
-	/* iperf3 */
-	{ "iperf3_enable", "0" },
-#endif
-
 #if defined(APP_DNSFORWARDER)
 	/* dns-forwarder */
 	{ "dns_forwarder_enable", "0" },
