@@ -354,7 +354,7 @@ EOF
 		log "启动 dns2tcp：5353 端口..."
 		dns2tcp -L"127.0.0.1#5353" -R"$dnsstr" >/dev/null 2>&1 &
 		start_chinadns
-		pdnsd_enable_flag=0
+		pdnsd_enable_flag=1
 		log "开始处理 gfwlist..."
 	;;
 	gfw)
@@ -364,7 +364,7 @@ EOF
 		ipset add gfwlist $dnsserver 2>/dev/null
 		log "启动 dns2tcp：5353 端口..."
 		dns2tcp -L"127.0.0.1#5353" -R"$dnsstr" >/dev/null 2>&1 &
-		pdnsd_enable_flag=0
+		pdnsd_enable_flag=1
 		log "开始处理 gfwlist..."
 		;;
 	oversea)
