@@ -6,6 +6,8 @@
 # This is free software, licensed under the GNU General Public License v3.
 # See /LICENSE for more information.
 #
+# changed by simonchen 2023
+
 NAME=shadowsocksr
 server_process_count=$1
 redir_tcp_process=$2
@@ -46,7 +48,7 @@ do
 	if [ $redir_tcp_process -gt 0 ] ;then
 		icount=`ps -w | grep ssr-retcp | grep -v grep | wc -l`
 		if [ $icount = 0 ] ;then
-			log "检测到SS进程挂掉, 重新启动!"
+			log "检测到 SS 进程挂掉，正在重启..."
 			/usr/bin/shadowsocks.sh restart 
 			exit 0
 		fi
@@ -55,7 +57,7 @@ do
 	if [ $redir_udp_process -gt 0 ] ;then
 		icount=`ps -w | grep ssr-reudp | grep -v grep | wc -l`
 		if [ $icount = 0 ] ;then
-			log "检测到SS进程挂掉, 重新启动!"
+			log "检测到 SS 进程挂掉，正在重启..."
 			/usr/bin/shadowsocks.sh restart  
 			exit 0
 		fi
@@ -82,7 +84,7 @@ do
 		icount=`ps -w | grep $bin | grep -v grep| wc -l`
 		if [ $icount -lt $v2ray_process ]  #如果进程挂掉就重启它
 		then
-			log "检测到 $bin 进程挂掉，重新启动!"
+			log "检测到 $bin 进程挂掉，正在重启..."
 			killall -q -9 $bin
 			run_bin /usr/bin/$bin --config $conf
 		fi   
@@ -102,7 +104,7 @@ do
 		icount=`ps -w | grep dns2tcp | grep -v grep | wc -l`
 		if [ $icount -lt $pdnsd_process ]  #如果进程挂掉就重启它
 		then
-		   log "dns2tcp is restarted!"
+		   log "dns2tcp tunnel error.restarted!"
 		   kill -9 dns2tcp
 		   log "启动 dns2tcp：5353 端口..."
 		   dns2tcp -L"127.0.0.1#5353" -R"$(nvram get tunnel_forward)" >/dev/null 2>&1 &
@@ -119,10 +121,10 @@ do
 			dns2tcp -L"127.0.0.1#5353" -R"$(nvram get tunnel_forward)" >/dev/null 2>&1 &
 			local_chnlist_file='/etc/storage/chinadns/chnlist_mini.txt'
 			if [ -f "$local_chnlist_file" ]; then
-			  log "启动chinadns分流，仅国外域名走DNS代理..."
+			  log "启动chinadns-ng分流，仅国外域名走DNS代理..."
 			  chinadns-ng -b 0.0.0.0 -l 65353 -c $(nvram get china_dns) -t 127.0.0.1#5353 -4 china -M -m $local_chnlist_file >/dev/null 2>&1 &
 			else
-			  log "启动chinadns分流，全部域名走DNS代理...本次不使用本地cdn域名文件$local_chnlist_file, 下次你自已可以创建它，文件中每行表示一个域名（不用要子域名）"
+			  log "启动chinadns-ng分流，全部域名走DNS代理...本次不使用本地cdn域名文件$local_chnlist_file, 下次你自已可以创建它，文件中每行表示一个域名（不用要子域名）"
 			  chinadns-ng -b 0.0.0.0 -l 65353 -c $(nvram get china_dns) -t 127.0.0.1#5353 -4 china >/dev/null 2>&1 &
 			fi
 			sed -i '/no-resolv/d' /etc/storage/dnsmasq/dnsmasq.conf
