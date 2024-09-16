@@ -341,6 +341,7 @@ start_dns() {
 no-resolv
 server=127.0.0.1#65353
 EOF
+		fi
 		# restart dnsmasq
 		killall dnsmasq
 		/user/sbin/dnsmasq >/dev/null 2>&1 &
