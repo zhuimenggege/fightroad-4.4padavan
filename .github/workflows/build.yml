@@ -60,5 +60,5 @@ jobs:
         with:
           commit: ${{ github.sha }}
           tag: ${{ env.TAG_NAME }}
-          artifacts: "./padavan"
+          artifacts: "./padavan/*"
           allowUpdates: true
