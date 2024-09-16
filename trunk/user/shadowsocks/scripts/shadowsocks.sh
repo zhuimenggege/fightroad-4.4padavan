@@ -341,14 +341,6 @@ start_dns() {
 no-resolv
 server=127.0.0.1#65353
 EOF
-		fi
-		# dnsmasq optimization
-		sed -i '/min-cache-ttl/d' /etc/storage/dnsmasq/dnsmasq.conf
-		sed -i '/dns-forward-max/d' /etc/storage/dnsmasq/dnsmasq.conf
-		cat >> /etc/storage/dnsmasq/dnsmasq.conf << EOF
-min-cache-ttl=1800
-dns-forward-max=1000
-EOF
 		# restart dnsmasq
 		killall dnsmasq
 		/user/sbin/dnsmasq >/dev/null 2>&1 &
