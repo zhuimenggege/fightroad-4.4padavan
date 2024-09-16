@@ -1099,6 +1099,7 @@
 			{"socks5_s_password","",NULL, EVM_RESTART_SHADOWSOCKS},
 			{"lan_con","",NULL, EVM_RESTART_SHADOWSOCKS},
 			{"ss_chnroute_url","",NULL, FALSE},
+			{"ss_gfwlist_url","",NULL, FALSE},
 			{"ss_cgroups", "",NULL, EVM_RESTART_SHADOWSOCKS},
 			{"ss_cgoups_cpu_s", "",NULL, EVM_RESTART_SHADOWSOCKS},
 			{"ss_cgoups_mem_s", "",NULL, EVM_RESTART_SHADOWSOCKS},

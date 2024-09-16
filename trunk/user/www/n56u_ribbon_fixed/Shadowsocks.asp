@@ -2585,7 +2585,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 														<td>
 															<input type="text" class="input" size="15"
 																name="ss_gfw_url" style="width: 200px"
-																value="<% nvram_get_x("","ss_gfw_url"); %>" />
+																value="<% nvram_get_x("","ss_gfwlist_url"); %>" />
 														</td>
 													</tr>
 													<tr>

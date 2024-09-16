@@ -585,10 +585,11 @@ struct nvram_pair router_defaults[] = {
 	{ "ss_watchcat", "1" },
 	{ "lan_con", "0" },
 	{ "ss_chnroute_url", "https://ispip.clang.cn/all_cn.txt"},
+    { "ss_gfwlist_url", "https://cdn.jsdelivr.net/gh/YW5vbnltb3Vz/domain-list-community@release/gfwlist.txt"},
 	{ "ss_adblock_url", "https://gitee.com/privacy-protection-tools/anti-ad/raw/master/anti-ad-for-dnsmasq.conf"},
 	{ "ss_schedule_enable", "0" },
 	{ "ss_schedule", "00000000000" },
-
+	
 	{ "ss_enable", "0" },
 	{ "ss_mode", "1" },
 	{ "ss_server", "127.0.0.1" },
