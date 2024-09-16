@@ -152,6 +152,7 @@ start_rules() {
     log "正在添加防火墙规则..."
 	lua /etc_ro/ss/getconfig.lua $GLOBAL_SERVER > /tmp/server.txt
 	server=`cat /tmp/server.txt` 
+	rm -f /tmp/server.txt
 	cat /etc/storage/ss_ip.sh | grep -v '^!' | grep -v "^$" >$wan_fw_ips
 	cat /etc/storage/ss_wan_ip.sh | grep -v '^!' | grep -v "^$" >$wan_bp_ips
 	#resolve name
@@ -176,6 +177,7 @@ start_rules() {
 		ARG_UDP="-U"
 		lua /etc_ro/ss/getconfig.lua $UDP_RELAY_SERVER > /tmp/userver.txt
 	    udp_server=`cat /tmp/userver.txt` 
+		rm -f /tmp/userver.txt
 		udp_local_port="1080"
 	fi
 	if [ -n "$lan_ac_ips" ]; then
@@ -209,9 +211,9 @@ start_rules() {
 	cat /etc/storage/ss_lan_gmip.sh | grep -v '^!' | grep -v "^$" >$lan_gm_ips
 	dports=$(nvram get s_dports)
 	if [ $dports = "0" ]; then
-		proxyport=" "
+		proxyport="--syn"
 	else
-		proxyport="-m multiport --dports 22,53,587,465,995,993,143,80,443"
+		proxyport="-m multiport --dports 22,53,587,465,995,993,143,80,443,3389 --syn"
 	fi
 	/usr/bin/ss-rules \
 		-s "$server" \
@@ -241,7 +243,7 @@ start_redir_tcp() {
 	else
 		threads=$(nvram get ss_threads)
 	fi
-	log "启动 $stype 主服务器..."
+	log "正在启动 $stype 服务器..."
 	case "$stype" in
 	ss | ssr)
 		last_config_file=$CONFIG_FILE
@@ -282,7 +284,7 @@ start_redir_udp() {
 	if [ "$UDP_RELAY_SERVER" != "nil" ]; then
 		redir_udp=1
 		utype=$(nvram get ud_type)
-		log "启动 $utype 游戏 UDP 中继服务器"
+		log "正在启动 $utype 游戏 UDP 中继服务器..."
 		local bin=$(find_bin $utype)
 		[ ! -f "$bin" ] && log "UDP TPROXY Relay:Can't find $bin program, can't start!" && return 1
 		case "$utype" in
@@ -478,7 +480,7 @@ ssp_start() {
 	auto_update
 	ENABLE_SERVER=$(nvram get global_server)
 	[ "$ENABLE_SERVER" = "nil" ] && return 1
-	log "启动成功。"
+	log "已启动科学上网..."
 	log "内网IP控制为: $lancons"
 	nvram set check_mode=0
     if [ "$pppoemwan" = 0 ]; then
@@ -613,17 +615,21 @@ ressp() {
 case $1 in
 start)
 	ssp_start
+	echo 3 > /proc/sys/vm/drop_caches
 	;;
 stop)
 	ssp_close
+	echo 3 > /proc/sys/vm/drop_caches
 	;;
 restart)
 	ssp_close
 	ssp_start
+	echo 3 > /proc/sys/vm/drop_caches
 	;;
 reserver)
 	ssp_close
 	ressp
+	echo 3 > /proc/sys/vm/drop_caches
 	;;
 *)
 	echo "check"

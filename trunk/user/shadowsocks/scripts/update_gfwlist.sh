@@ -21,6 +21,7 @@ if [ $count -gt 1000 ]; then
     mtd_storage.sh save >/dev/null 2>&1
     mkdir -p /etc/storage/gfwlist/
     log "gfwlist 更新完成！"
+    echo 3 > /proc/sys/vm/drop_caches
     if [ $(nvram get ss_enable) = 1 ]; then
         lua /etc_ro/ss/gfwcreate.lua
         log "重启 ShadowSocksR Plus+..."
