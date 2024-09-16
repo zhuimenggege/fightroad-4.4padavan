@@ -29,7 +29,7 @@ jobs:
           check-latest: true
           cache: false
 
-     - name: initialize node environment
+      - name: initialize node environment
       - uses: actions/setup-node@v3
         with:
           node-version: 20
