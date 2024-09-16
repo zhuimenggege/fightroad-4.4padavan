@@ -42,7 +42,7 @@
 			init_itoggle('ss_watchcat');
 			init_itoggle('ss_update_chnroute');
 			init_itoggle('ss_update_gfwlist');
-			init_itoggle('socks5_aenable');
+			init_itoggle('socks5_enable');
 			init_itoggle('ss_schedule_enable', change_on);
 			$j("#tab_ss_cfg, #tab_ss_add, #tab_ss_dlink, #tab_ss_ssl, #tab_ss_cli, #tab_ss_log, #tab_ss_help").click(
 				function () {
@@ -963,7 +963,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 			var s = document.getElementById(urlname + '-status');
 			if (!s)
 				return false;
-			var ssrurl = prompt("在这里黏贴配置链接 ssr:// | ss:// | vmess:// | vless:// | trojan://", "");
+			var ssrurl = prompt("在这里粘贴配置链接 ssr:// | ss:// | vmess:// | vless:// | trojan://", "");
 			if (ssrurl == null || ssrurl == "") {
 				s.innerHTML = "<font color='red'>用户取消</font>";
 				return false;
@@ -1056,7 +1056,8 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 				if (param != undefined) {
 				document.getElementById('ssp_name').value = decodeURI(param);
 				}				
-				s.innerHTML = "<font color='green'>导入Shadowsocks配置信息成功</font>";					}
+				s.innerHTML = "<font color='green'>导入Shadowsocks配置信息成功</font>";
+				}
 			 else {
 				var sstr = b64decsafe(url0);
 				document.getElementById('ssp_type').value = "ss";
@@ -2097,7 +2098,6 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 															</td>
 														</tr>
 														<!--SSR参数结束-->
-														</tbody>
 														<tr id="row_s5_enable" style="display:none;">
 															<th>启用用户名/密码认证</th>
 															<td>
@@ -2446,7 +2446,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 														</td>
 													</tr>
 													<tr>
-														<th colspan="2" style="background-color: #E3E3E3;">节点故障自动切换设置</th>
+														<th colspan="2" style="background-color: #E3E3E3;">服务守护设置</th>
 													</tr>
 													<tr>
 														<th>启用进程自动守护</th>
@@ -2584,7 +2584,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 														<th width="50%">自定义GFW更新地址:</th>
 														<td>
 															<input type="text" class="input" size="20"
-																name="ss_gfw_url" style="width: 200px"
+																name="ss_gfwlist_url" style="width: 200px"
 																value="<% nvram_get_x("","ss_gfwlist_url"); %>" />
 														</td>
 													</tr>
