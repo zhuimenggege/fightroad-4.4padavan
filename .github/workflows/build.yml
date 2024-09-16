@@ -58,5 +58,5 @@ jobs:
         with:
           commit: ${{ github.sha }}
           tag: ${{ env.TAG_NAME }}
-          artifacts: "mipsel-linux-musl/*.trx"
+          artifacts: "mipsel-linux-musl/"
           allowUpdates: true
