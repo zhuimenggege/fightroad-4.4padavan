@@ -387,12 +387,12 @@ function networkmap_update(s){
             <th colspan="5" style="text-align: center;"><#ConnectedClient#></th>
         </tr>
         <tr>
-            <th width="10%"><a href="javascript:sort(0)"><#Type#></a></th>
-            <th id="col_hname" width="35%"><a href="javascript:sort(1)"><#Computer_Name#></a></th>
-            <th width="20%"><a href="javascript:sort(2)"><#IP_Address#></a></th>
-            <th width="24%"><a href="javascript:sort(3)"><#MAC_Address#></a></th>
-            <th id="col_rssi"><a href="javascript:sort(4)"><#Rssi#></a></th>
-            <th id="col_block"></th>
+            <th width="8%"><a href="javascript:sort(0)">TYPE</a></th>
+            <th><a href="javascript:sort(1)"><#Computer_Name#></a></th>
+            <th width="20%"><a href="javascript:sort(2)">IP</a></th>
+            <th width="24%"><a href="javascript:sort(3)">MAC</a></th>
+            <th width="8%" id="col_rssi"><a href="javascript:sort(4)">RSSI</a></th>
+            <th width="0%" id="col_block"></th>
         </tr>
     </thead>
     <tbody>
@@ -406,12 +406,12 @@ function networkmap_update(s){
             <th colspan="5" style="text-align: center;"><#BlockedClient#></th>
         </tr>
         <tr>
-            <th width="10%"><#Type#></th>
-            <th id="col_unhname" width="35%"><#Computer_Name#></th>
-            <th width="20%"><#IP_Address#></th>
-            <th width="24%"><#MAC_Address#></th>
-            <th id="col_unrssi"><#Rssi#></th>
-            <th id="col_unblock"></th>
+            <th width="8%">TYPE</th>
+            <th><#Computer_Name#></th>
+            <th width="20%">IP</th>
+            <th width="24%">MAC</th>
+            <th width="8%" id="col_unrssi">RSSI</th>
+            <th width="0%" id="col_unblock"></th>
         </tr>
     </thead>
     <tbody>
