@@ -14,58 +14,50 @@ jobs:
         target: [K2P,RT-AC85P,CR660x]
         toolchain: [mipsel-linux-musl]
     steps:
-      - name: checkout  code 
       - uses: actions/checkout@v3
-
-      - name: ccache 
       - uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ matrix.target }}-${{ matrix.toolchain }}
-
-      - name: initialize  golang  environment
       - uses: actions/setup-go@v4
         with:
           go-version: '1.20'
           check-latest: true
           cache: false
-
-      - name: initialize node environment
       - uses: actions/setup-node@v3
         with:
           node-version: 20
           check-latest: true
-        
-      - name: initialize environment
+      - name: Prepare
         run: |
           sudo apt update
           sudo apt install libtool-bin gperf python3-docutils autopoint gettext ccache
-
-      - name: Build  padavan 
+      - name: Build
         run: |
           make ${{ matrix.target }} TOOLCHAIN=${{ matrix.toolchain }}
-
-      - name: padava  artifact
+          if [ "${{ matrix.target }}" = "K2P-NANO" ]; then
+            image=$(ls trunk/images/*.trx)
+            mv $image $(echo $image | sed 's/K2P/K2P-NANO/')
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.toolchain }}
           path: trunk/images/*.trx
-  
-  #publish:
-    #needs: [build]
-    #runs-on: ubuntu-22.04
-    #if: ${{ github.ref == 'refs/heads/main' }}
-    #steps:
-    #  - uses: actions/checkout@v3
-     # - uses: actions/download-artifact@v4
-     # - name: Set Tag Name
-      #  run: echo "TAG_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
-    #  - uses: rickstaa/action-create-tag@v1
-    #    with:
-     #     tag: ${{ env.TAG_NAME }}
-     #     force_push_tag: true
-   #   - uses: ncipollo/release-action@v1
-    #    with:
-     #     commit: ${{ github.sha }}
-    #      tag: ${{ env.TAG_NAME }}
-    #      artifacts: "mipsel-linux-musl/*.trx"
-    #      allowUpdates: true
+  publish:
+    needs: [build]
+    runs-on: ubuntu-22.04
+    if: ${{ github.ref == 'refs/heads/main' }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v4
+      - name: Set Tag Name
+        run: echo "TAG_NAME=$(date +%Y%m%d)" >> $GITHUB_ENV
+      - uses: rickstaa/action-create-tag@v1
+        with:
+          tag: ${{ env.TAG_NAME }}
+          force_push_tag: true
+      - uses: ncipollo/release-action@v1
+        with:
+          commit: ${{ github.sha }}
+          tag: ${{ env.TAG_NAME }}
+          artifacts: "mipsel-linux-musl/*.trx"
+          allowUpdates: true
