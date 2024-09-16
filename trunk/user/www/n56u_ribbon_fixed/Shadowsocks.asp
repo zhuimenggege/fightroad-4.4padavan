@@ -2581,6 +2581,15 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 														</td>
 													</tr>
 													<tr>
+														<th width="50%">自定义GFW更新地址:</th>
+														<td>
+															<input type="text" class="input" size="15"
+																name="ss_gfw_url" style="width: 200px"
+																value="<% nvram_get_x("","ss_gfw_url"); %>" />
+														</td>
+													</tr>
+													<tr>
+													<tr>
 														<th>
 															<#menu5_16_19#>
 														</th>
