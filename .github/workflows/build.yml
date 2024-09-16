@@ -40,7 +40,7 @@ jobs:
           fi
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.toolchain }}
+          name: ${{ matrix.target }}-${{ matrix.toolchain }}
           path: trunk/images/*.trx
   publish:
     needs: [build]
