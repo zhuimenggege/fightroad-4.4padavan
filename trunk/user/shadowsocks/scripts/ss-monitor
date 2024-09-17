@@ -105,7 +105,7 @@ do
 		if [ $icount -lt $pdnsd_process ]  #如果进程挂掉就重启它
 		then
 		   log "dns2tcp tunnel error.restarted!"
-		   kill -9 dns2tcp
+		   killall -q -9 dns2tcp
 		   log "启动 dns2tcp：5353 端口..."
 		   dns2tcp -L"127.0.0.1#5353" -R"$(nvram get tunnel_forward)" >/dev/null 2>&1 &
 		fi   
@@ -116,8 +116,8 @@ do
 		if [ $icount -lt $chinadnsng_process ]  #如果进程挂掉就重启它
 		then
 			log "chinadns-ng tunnel error.restart!"
-			kill -9 chinadns-ng
-			kill -9 dns2tcp
+			killall -q -9 chinadns-ng
+			killall -q -9 dns2tcp
 			dns2tcp -L"127.0.0.1#5353" -R"$(nvram get tunnel_forward)" >/dev/null 2>&1 &
 			local_chnlist_file='/etc/storage/chinadns/chnlist_mini.txt'
 			if [ -f "$local_chnlist_file" ]; then

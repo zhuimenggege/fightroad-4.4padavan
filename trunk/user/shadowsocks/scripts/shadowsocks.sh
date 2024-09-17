@@ -357,7 +357,7 @@ EOF
 		#dnsport=$(echo "$dnsstr" | awk -F '#' '{print $2}')
 		# 将dnsserver (上游国外DNS: 比如 8.8.8.8) 放入ipset:gfwlist，强制走SS_SPEC_WAN_FW代理
 		ipset add gfwlist $dnsserver 2>/dev/null
-		kill -9 dns2tcp
+		killall -q -9 dns2tcp
 		log "启动 dns2tcp：5353 端口..."
 		# 将dnsserver (上游国外DNS: 比如 8.8.8.8) 放入ipset:gfwlist，强制走SS_SPEC_WAN_FW代理
 		ipset add gfwlist $dnsserver 2>/dev/null
@@ -372,7 +372,7 @@ EOF
 		#dnsport=$(echo "$dnsstr" | awk -F '#' '{print $2}')
 		# 将dnsserver (上游国外DNS: 比如 8.8.8.8) 放入ipset:gfwlist，强制走SS_SPEC_WAN_FW代理
 		ipset add gfwlist $dnsserver 2>/dev/null
-		kill -9 dns2tcp
+		killall -q -9 dns2tcp
 		log "启动 dns2tcp：5353 端口..."
 		dns2tcp -L"127.0.0.1#5353" -R"$dnsstr" >/dev/null 2>&1 &
 		pdnsd_enable_flag=1
