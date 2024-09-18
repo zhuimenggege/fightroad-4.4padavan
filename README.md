@@ -5,6 +5,7 @@
 - zerotier和frpc都更新到最新，都正常使用。异地组网的好搭档。
 - ipv6正常使用，ipv6不支持nat！
 - hwnat硬加速和sfe软加速都有效果！
+- 去除了很多log里刷屏的内核日志！
 
 zerotier 使用技巧：
 
