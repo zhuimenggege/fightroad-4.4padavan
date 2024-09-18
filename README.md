@@ -7,6 +7,13 @@ ip：192.168.2.1
 账号：admin
 密码：admin
 wifi密码：1234567890
+![image](https://github.com/user-attachments/assets/c9e7f317-22d3-47a5-91a7-12b084992a47)
+![image](https://github.com/user-attachments/assets/eca3da71-3b7f-4ef0-b5cf-a0f12be536bb)
+![image](https://github.com/user-attachments/assets/aad24ef7-633c-4576-a215-ea68e3b829a0)
+![image](https://github.com/user-attachments/assets/215423ac-cef8-4f25-a7d2-b4942c427193)
+![image](https://github.com/user-attachments/assets/90e0471d-4842-4c6d-b39d-cbc94b4a17f2)
+
+
 
 This project is based on original rt-n56u with latest mtk 4.4.198 kernel, which is fetch from D-LINK GPL code.
 
