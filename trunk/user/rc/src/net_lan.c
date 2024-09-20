@@ -1052,7 +1052,8 @@ int
 start_udhcpc_lan(char *lan_ifname)
 {
 	char lan_hostname[26] = "hostname:";
-	strncat(lan_hostname, get_our_hostname(), sizeof(lan_hostname) - strlen(lan_hostname) - 1);
+	size_t remaining_space = sizeof(lan_hostname) - strlen(lan_hostname) - 1;
+	strncat(lan_hostname, get_our_hostname(), remaining_space);
 	char *dhcp_argv[] = {
 		"/sbin/udhcpc",
 		"-i", lan_ifname,
