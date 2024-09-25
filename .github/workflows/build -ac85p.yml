@@ -12,6 +12,8 @@ jobs:
         toolchain: [mipsel-linux-musl]
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: bak0925
       - uses: hendrikmuhs/ccache-action@v1.2
         with:
           key: ${{ matrix.target }}-${{ matrix.toolchain }}
@@ -31,30 +33,7 @@ jobs:
       - name: Build
         run: |
           make ${{ matrix.target }} TOOLCHAIN=${{ matrix.toolchain }}
-          if [ "${{ matrix.target }}" = "K2P-NANO" ]; then
-            image=$(ls trunk/images/*.trx)
-            mv $image $(echo $image | sed 's/K2P/K2P-NANO/')
-          fi
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.toolchain }}
           path: trunk/images/*.trx
-  publish:
-    needs: [build]
-    runs-on: ubuntu-22.04
-    if: ${{ github.ref == 'refs/heads/main' }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
-      - name: Set Tag Name
-        run: echo "TAG_ANME=$(date +%Y%m%d)" >> $GITHUB_ENV
-      - uses: rickstaa/action-create-tag@v1
-        with:
-          tag: ${{ env.TAG_ANME }}
-          force_push_tag: true
-      - uses: ncipollo/release-action@v1
-        with:
-          commit: ${{ github.sha }}
-          tag: ${{ env.TAG_ANME }}
-          artifacts: "mipsel-linux-musl/*.trx"
-          allowUpdates: true
