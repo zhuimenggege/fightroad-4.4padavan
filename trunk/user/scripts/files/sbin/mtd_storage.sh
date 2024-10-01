@@ -330,6 +330,26 @@ EOF
 ### UPnP solution when router without external IP
 #echo "ext_ip=1.1.1.1" >> /etc/miniupnpd.conf && killall miniupnpd && miniupnpd -f /etc/miniupnpd.conf
 
+###logger  "运行后 WAN 状态:" "WAN 状态:【$1】, WAN 接口:【$2】, WAN IP:【$3】"
+if [ $1 == "up" ] ; then
+SleepTime=30
+logger -t "WAN状态改变" "【延时$SleepTime秒检测ZeroTier状态】"
+sleep $SleepTime
+KEYWORD="zte"
+RULE_EXIST=$(iptables -L -n -v | grep "$KEYWORD")
+NVRAM_ZEROTIER_ENABLE=$(nvram get zerotier_enable)
+if [ -z "$RULE_EXIST" ]; then
+    if [ "$NVRAM_ZEROTIER_ENABLE" = "1" ]; then
+        logger -t "检测结果" "【ZeroTier防火墙规则不存在，但服务已启用，需要重启服务！】"
+        zerotier.sh stop && sleep 2 && zerotier.sh start
+    else
+        logger -t "检测结果" "【ZeroTier服务未启用，不需要重启服务！】"
+    fi
+else
+    logger -t "检测结果" "【ZeroTier状态正常，不需要重启服务！】"
+fi
+fi
+
 EOF
 		chmod 755 "$script_postw"
 	fi
