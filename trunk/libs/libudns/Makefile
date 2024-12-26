@@ -1,16 +1,25 @@
 include $(ROOTDIR)/rules.mk
 
-PKG_NAME:=udns
-PKG_VERSION:=0.6
+PKG_NAME:=libusb
+PKG_VERSION:=1.0.23
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://www.corpit.ru/mjt/udns/
-PKG_HASH:=696a2d0d518da985d975a65e11d166f3f57cdbd1d42376a0b85307f49601c6e8
-
-PKG_FIXUP:=autoreconf
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_URL:=\
+  https://github.com/libusb/libusb/releases/download/v$(PKG_VERSION) \
+  @SF/$(PKG_NAME)
+PKG_HASH:=db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d
 
 include $(INCLUDE_DIR)/package.mk
 
-$(eval $(call BuildPackage,udns))
+CONFIGURE_ARGS += \
+	--disable-static \
+	--disable-log \
+	--disable-udev \
+	--disable-examples-build \
+	--disable-tests-build
+
+$(eval $(call BuildPackage,libusb))
 
 romfs:
+	$(INSTALL_DIR) $(ROMFSDIR)/lib
+	$(CP) $(PKG_INSTALL_DIR)/lib/libusb-1.0.so* $(ROMFSDIR)/lib/
